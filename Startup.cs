@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using GolfScoreStoringWebApplication.Data;
@@ -11,6 +10,7 @@ using GolfScoreStoringWebApplication.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using GolfScoreStoringWebApplication.Services.User;
 
 namespace GolfScoreStoringWebApplication
 {
@@ -48,6 +48,8 @@ namespace GolfScoreStoringWebApplication
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +66,6 @@ namespace GolfScoreStoringWebApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -91,6 +92,7 @@ namespace GolfScoreStoringWebApplication
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
         }
     }
 }
