@@ -30,6 +30,9 @@ namespace GolfScoreStoringWebApplication
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<golfapplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -50,6 +53,7 @@ namespace GolfScoreStoringWebApplication
             });
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<golfapplicationContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

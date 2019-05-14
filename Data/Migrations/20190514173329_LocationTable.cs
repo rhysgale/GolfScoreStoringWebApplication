@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace GolfScoreStoringWebApplication.Data.Migrations
 {
@@ -10,7 +11,7 @@ namespace GolfScoreStoringWebApplication.Data.Migrations
                 name: "PlaceLocation", //The actual location of the place
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: false, maxLength: 100),
                     Address1 = table.Column<string>(nullable: true, maxLength: 100),
                     Address2 = table.Column<string>(nullable: true, maxLength: 100),

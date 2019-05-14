@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace GolfScoreStoringWebApplication.Data.Migrations
 {
@@ -10,8 +11,8 @@ namespace GolfScoreStoringWebApplication.Data.Migrations
                 name: "HoleInfo", //If a place has multiple courses
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    CourseId = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    CourseId = table.Column<Guid>(nullable: false),
                     Par = table.Column<int>(nullable: false),
                     Distance = table.Column<int>(nullable: false)
                 },

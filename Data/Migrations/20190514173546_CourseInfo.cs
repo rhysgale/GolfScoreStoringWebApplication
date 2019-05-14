@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace GolfScoreStoringWebApplication.Data.Migrations
 {
@@ -10,8 +11,8 @@ namespace GolfScoreStoringWebApplication.Data.Migrations
                 name: "CourseInfo", //If a place has multiple courses
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    LocationId = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    LocationId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: false, maxLength: 100)
                 },
                 constraints: table =>
@@ -20,7 +21,7 @@ namespace GolfScoreStoringWebApplication.Data.Migrations
                     table.ForeignKey(
                         name: "FK_CourseInfo_PlaceLocation",
                         column: x => x.LocationId,
-                        principalTable: "PlaceInfo",
+                        principalTable: "PlaceLocation",
                         principalColumn: "Id");
                 });
         }
