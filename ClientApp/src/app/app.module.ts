@@ -8,10 +8,14 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { NewGameComponent } from './newgame/newgame.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
+
+//Adding locations stuff
+import { NewLocationComponent } from './locations/newlocation.component';
+import { LocationsComponent } from './locations/locations.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +23,8 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     NavMenuComponent,
     HomeComponent,
     FetchDataComponent,
-    NewGameComponent
+    LocationsComponent,
+    NewLocationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,7 +34,10 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'newgame', component: NewGameComponent, canActivate: [AuthorizeGuard] }
+
+      //Adding locations stuff
+      { path: 'locations', component: LocationsComponent, canActivate: [AuthorizeGuard] },
+      { path: 'locations/newlocation', component: NewLocationComponent, canActivate: [AuthorizeGuard] }
     ])
   ],
   providers: [
