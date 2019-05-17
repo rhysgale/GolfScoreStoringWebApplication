@@ -2,9 +2,28 @@
 </head>
 <body>
   <h1>Locations</h1>
-  <div class="alert alert-warning">This is a warning box!</div>
+  <table *ngIf="locations" style="width: 100%" class="table">
+    <thead class="thead-light table-hover">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Address1</th>
+        <th scope="col">PostCode</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let location of locations; index as i; trackBy: trackByFn">
+        <td>{{location.name}}</td>
+        <td>{{location.address1}}</td>
+        <td>{{location.address2}}</td>
+        <td><button class="btn btn-warning">Edit</button></td>
+        <td><button class="btn btn-info">Select</button></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <button class="btn btn-success" [routerLink]='["/locations/newlocation"]'>Add new location</button>
+  <button class="btn btn-success float-right mt-5" [routerLink]='["/locations/newlocation"]'>Add new location</button>
 </body>
 
 

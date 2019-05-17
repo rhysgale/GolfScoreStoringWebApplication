@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using GolfScoreStoringWebApplication.Models;
+using System.Linq;
 
 namespace GolfScoreStoringWebApplication.Controllers
 {
@@ -16,19 +17,21 @@ namespace GolfScoreStoringWebApplication.Controllers
             _context = context;
         }
 
-        [HttpGet("[action]")]
-        public void NewLocation()
+        [HttpPost("[action]")]
+        public void NewLocation([FromBody]PlaceLocation newLocation)
         {
-            var courseInfo = new PlaceLocation()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Trent Lock",
-                Address1 = "Lock Lane",
-                PostCode = "NG10 3QB"
-            };
+            newLocation.Id = Guid.NewGuid();
 
-            _context.PlaceLocation.Add(courseInfo);
+            _context.Add(newLocation);
             _context.SaveChanges();
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetLocations()
+        {
+            var locations = _context.PlaceLocation.ToList();
+
+            return Ok(locations);
         }
     }
 }
