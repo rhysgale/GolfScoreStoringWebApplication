@@ -12,8 +12,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 
 //Adding locations stuff
-import { NewLocationComponent } from './locations/newlocation.component';
-import { LocationsComponent } from './locations/locations.component';
+import { LocationsComponent, NewLocationComponent } from './locations/locations.component';
 
 
 @NgModule({
