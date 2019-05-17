@@ -1,32 +1,44 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from './dataservice.component';
 
 @Component({
   selector: 'show-locations-screen',
   templateUrl: './locations.component.html'
 })
-export class LocationsComponent {
+export class LocationsComponent implements OnInit {
   locations: Location[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private data: DataService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Location[]>(baseUrl + 'api/Location/GetLocations').subscribe(result => {
       this.locations = result;
     });
+  }
+
+  ngOnInit() {
+    this.data.changeMessage("this is a test of message");
   }
 }
 
 @Component({
   selector: 'app-new-location',
-  templateUrl: './newlocation.component.html'
+  templateUrl: './newlocation.component.html',
 })
-export class NewLocationComponent {
+export class NewLocationComponent implements OnInit {
   client: HttpClient;
   baseUrl: string;
+  stuff: string = "";
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  ngOnInit() {
+    this.data.currentMessage.subscribe(x => this.stuff = x);
+  }
+
+  constructor(private data: DataService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     //just empty for now...
     this.client = http;
     this.baseUrl = baseUrl;
+
+    data.currentMessage.subscribe(message => this.stuff = message);
   }
 
   //Form bindings
