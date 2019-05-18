@@ -24,6 +24,8 @@ export class LocationManagementComponent {
   templateUrl: './newlocation.component.html',
 })
 export class LocationComponent {
+  router: ActivatedRoute;
+
   client: HttpClient;
   baseUrl: string;
   location: Location = new Location();
@@ -31,31 +33,20 @@ export class LocationComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     //just empty for now...
     this.client = http;
+    this.router = route;
     this.baseUrl = baseUrl;
 
     var locationId = route.snapshot.paramMap.get("id");
 
     if (locationId) {
       this.client.get<Location>(this.baseUrl + 'api/Location/GetLocation?id=' + locationId).subscribe(result => {
-        this.name = result.name;
-        this.addressLine1 = result.address1;
-        this.addressLine2 = result.address2;
-        this.addressLine3 = result.address3;
-        this.postCode = result.postCode;
+        this.location = result;
       }, error => console.error(error));
     }
   }
 
   submitForm() {
-    var location = new Location();
-
-    location.name = this.name;
-    location.address1 = this.addressLine1;
-    location.address2 = this.addressLine2;
-    location.address3 = this.addressLine3;
-    location.postCode = this.postCode;
-
-    this.client.post(this.baseUrl + 'api/Location/NewLocation', location).subscribe(result => {
+    this.client.post(this.baseUrl + 'api/Location/NewLocation', this.location).subscribe(result => {
     }, error => console.error(error));
   };
 }

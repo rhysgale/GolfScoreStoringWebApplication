@@ -3,7 +3,6 @@
 <body>
   <h1>New Location</h1>
   <div class="alert alert-info">This page is for creating new locations.</div>
-  <div>{{stuff}}</div>
   <form>
     <div class="form-group">
       <label for="location-name-textbox">Location Name</label>
@@ -13,11 +12,11 @@
       <div class="row">
         <div class="col">
           <label for="address-line-1">Address Line 1</label>
-          <input type="text" class="form-control" id="address-line-1" name="address1" [(ngModel)]="location.addressLine1" placeholder="Address line 1...">
+          <input type="text" class="form-control" id="address-line-1" name="address1" [(ngModel)]="location.address1" placeholder="Address line 1...">
         </div>
         <div class="col">
           <label for="address-line-2">Address Line 2</label>
-          <input type="text" class="form-control" id="address-line-2" name="address2" [(ngModel)]="location.addressLine2" placeholder="Address line 2...">
+          <input type="text" class="form-control" id="address-line-2" name="address2" [(ngModel)]="location.address2" placeholder="Address line 2...">
         </div>
       </div>
     </div>
@@ -25,7 +24,7 @@
       <div class="row">
         <div class="col">
           <label for="address-line-3">Address Line 3</label>
-          <input type="text" class="form-control" id="address-line-3" name="address3" [(ngModel)]="location.addressLine3" placeholder="Address line 3...">
+          <input type="text" class="form-control" id="address-line-3" name="address3" [(ngModel)]="location.address3" placeholder="Address line 3...">
         </div>
         <div class="col">
           <label for="postcode">Postcode</label>
