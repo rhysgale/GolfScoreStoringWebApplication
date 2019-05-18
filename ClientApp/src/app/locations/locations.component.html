@@ -10,20 +10,22 @@
         <th scope="col">PostCode</th>
         <th scope="col"></th>
         <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let location of locations; index as i; trackBy: trackByFn">
         <td>{{location.name}}</td>
         <td>{{location.address1}}</td>
-        <td>{{location.address2}}</td>
-        <td><button class="btn btn-warning">Edit</button></td>
+        <td>{{location.postCode}}</td>
+        <td><button class="btn btn-warning" [routerLink]='["/locations/newlocation/"+location.id]'>Edit</button></td>
         <td><button class="btn btn-info">Select</button></td>
+        <td><button class="btn btn-danger">Delete</button></td>
       </tr>
     </tbody>
   </table>
 
-  <button class="btn btn-success float-right mt-5" [routerLink]='["/locations/newlocation"]'>Add new location</button>
+  <button class="btn btn-success float-right mt-5" [routerLink]='["/locations/editlocation"]'>Add new location</button>
 </body>
 
 

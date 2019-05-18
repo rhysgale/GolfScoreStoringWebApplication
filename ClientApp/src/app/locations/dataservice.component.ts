@@ -7,12 +7,7 @@ import { BehaviorSubject } from "rxjs";
 })
 export class DataService {
 
-  private messageSource = new BehaviorSubject("default");
-  currentMessage = this.messageSource.asObservable();
+  private currentEditId = new BehaviorSubject("");
 
-  constructor() { }
-
-  changeMessage(message: string) {
-    this.messageSource.next(message);
-  }
+  id = this.currentEditId.asObservable();
 }

@@ -1,61 +1,59 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './dataservice.component';
+import { ActivatedRoute } from '@angular/router';
 
+//View all locations
 @Component({
   selector: 'show-locations-screen',
   templateUrl: './locations.component.html'
 })
-export class LocationsComponent implements OnInit {
+export class LocationManagementComponent {
   locations: Location[];
 
-  constructor(private data: DataService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Location[]>(baseUrl + 'api/Location/GetLocations').subscribe(result => {
       this.locations = result;
     });
   }
-
-  ngOnInit() {
-    this.data.changeMessage("this is a test of message");
-  }
 }
 
+//Edit/Create location
 @Component({
   selector: 'app-new-location',
   templateUrl: './newlocation.component.html',
 })
-export class NewLocationComponent implements OnInit {
+export class LocationComponent {
   client: HttpClient;
   baseUrl: string;
-  stuff: string = "";
+  location: Location = new Location();
 
-  ngOnInit() {
-    this.data.currentMessage.subscribe(x => this.stuff = x);
-  }
-
-  constructor(private data: DataService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     //just empty for now...
     this.client = http;
     this.baseUrl = baseUrl;
 
-    data.currentMessage.subscribe(message => this.stuff = message);
-  }
+    var locationId = route.snapshot.paramMap.get("id");
 
-  //Form bindings
-  name: string;
-  addressLine1: string;
-  addressLine2: string;
-  addressLine3: string;
-  postCode: string;
+    if (locationId) {
+      this.client.get<Location>(this.baseUrl + 'api/Location/GetLocation?id=' + locationId).subscribe(result => {
+        this.name = result.name;
+        this.addressLine1 = result.address1;
+        this.addressLine2 = result.address2;
+        this.addressLine3 = result.address3;
+        this.postCode = result.postCode;
+      }, error => console.error(error));
+    }
+  }
 
   submitForm() {
     var location = new Location();
 
-    location.Name = this.name;
-    location.Address1 = this.addressLine1;
-    location.Address2 = this.addressLine2;
-    location.Address3 = this.addressLine3;
-    location.PostCode = this.postCode;
+    location.name = this.name;
+    location.address1 = this.addressLine1;
+    location.address2 = this.addressLine2;
+    location.address3 = this.addressLine3;
+    location.postCode = this.postCode;
 
     this.client.post(this.baseUrl + 'api/Location/NewLocation', location).subscribe(result => {
     }, error => console.error(error));
@@ -63,10 +61,10 @@ export class NewLocationComponent implements OnInit {
 }
 
 class Location {
-  Id: string; //Guid?
-  Name: string;
-  Address1: string;
-  Address2: string;
-  Address3: string;
-  PostCode: string;
+  id: string; //Guid?
+  name: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  postCode: string;
 }

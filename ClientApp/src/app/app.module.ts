@@ -12,7 +12,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 
 //Adding locations stuff
-import { LocationsComponent, NewLocationComponent } from './locations/locations.component';
+import { LocationManagementComponent, LocationComponent } from './locations/locations.component';
 
 
 @NgModule({
@@ -20,8 +20,8 @@ import { LocationsComponent, NewLocationComponent } from './locations/locations.
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    LocationsComponent,
-    NewLocationComponent
+    LocationManagementComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,8 +32,9 @@ import { LocationsComponent, NewLocationComponent } from './locations/locations.
       { path: '', component: HomeComponent, pathMatch: 'full' },
 
       //Adding locations stuff
-      { path: 'locations', component: LocationsComponent, canActivate: [AuthorizeGuard] },
-      { path: 'locations/newlocation', component: NewLocationComponent, canActivate: [AuthorizeGuard] }
+      { path: 'locations', component: LocationManagementComponent, canActivate: [AuthorizeGuard] },
+      { path: 'locations/editlocation', component: LocationComponent, canActivate: [AuthorizeGuard] },
+      { path: 'locations/newlocation/:id', component: LocationComponent, canActivate: [AuthorizeGuard] }
     ])
   ],
   providers: [

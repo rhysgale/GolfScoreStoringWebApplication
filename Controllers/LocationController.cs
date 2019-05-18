@@ -27,6 +27,14 @@ namespace GolfScoreStoringWebApplication.Controllers
         }
 
         [HttpGet("[action]")]
+        public IActionResult GetLocation(Guid id)
+        {
+            var location = _context.PlaceLocation.First(x => x.Id == id);
+
+            return Ok(location);
+        }
+
+        [HttpGet("[action]")]
         public IActionResult GetLocations()
         {
             var locations = _context.PlaceLocation.ToList();
