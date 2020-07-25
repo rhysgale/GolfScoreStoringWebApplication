@@ -47,6 +47,7 @@ export class LocationComponent {
 
   submitForm() {
     this.client.post(this.baseUrl + 'api/Location/NewLocation', this.location).subscribe(result => {
+       
     }, error => console.error(error));
   };
 }
